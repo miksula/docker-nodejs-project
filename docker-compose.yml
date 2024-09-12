@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  # Run the node application
+  nodejs:
+    container_name: node-app
+    restart: unless-stopped
+    environment: 
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 4001:4001
+    volumes:
+      - ./src:/app/src
+
+  # Run the caddy proxy server   
+  caddy:
+    image: caddy/caddy:2.8-alpine
+    container_name: caddy-service
+    restart: unless-stopped
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:            
+    - $PWD/Caddyfile:/etc/caddy/Caddyfile
+    - caddy_data:/data
+    - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config: 
