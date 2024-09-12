@@ -1,5 +1,5 @@
 # Replace example.com with real domain
-http://example1.com {
+node-app.delome.fi {
     # node-app:4001 is the docker container running the Node.js application
     # in our case it's exposed on port 4001
     reverse_proxy node-app:4001 
